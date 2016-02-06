@@ -1,0 +1,32 @@
+<manifest package="hu.alit.notifyperhour"
+		  xmlns:android="http://schemas.android.com/apk/res/android">
+
+	<application
+		android:allowBackup="true"
+		android:icon="@mipmap/ic_launcher"
+		android:label="@string/app_name"
+		android:supportsRtl="true"
+		android:theme="@style/AppTheme">
+
+		<uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+
+		<activity android:name=".MainActivity">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+			</intent-filter>
+		</activity>
+
+		<service
+			android:name="hu.alit.notifyperhour.NotifyService"
+			android:exported="false"/>
+
+		<receiver android:name=".NotifyMeReceiver">
+			<intent-filter >
+				<action android:name="android.intent.action.TIME_SET"/>
+				<action android:name="android.intent.action.BOOT_COMPLETED" />
+			</intent-filter>
+		</receiver>
+
+	</application>
+
+</manifest>
