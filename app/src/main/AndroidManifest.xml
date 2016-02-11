@@ -10,20 +10,17 @@
 
 		<uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
 
-		<activity android:name=".MainActivity">
+		<activity android:name="hu.alit.notifyperhour.MainActivity">
 			<intent-filter>
 				<action android:name="android.intent.action.MAIN" />
 			</intent-filter>
 		</activity>
 
-		<service
-			android:name="hu.alit.notifyperhour.NotifyService"
-			android:exported="false"/>
-
-		<receiver android:name=".NotifyMeReceiver">
+		<receiver android:name="hu.alit.notifyperhour.NotifyMeReceiver" android:enabled="true">
 			<intent-filter >
 				<action android:name="android.intent.action.TIME_SET"/>
 				<action android:name="android.intent.action.BOOT_COMPLETED" />
+
 			</intent-filter>
 		</receiver>
 

@@ -14,26 +14,26 @@ import java.util.Calendar;
  */
 public class AlarmHelper {
 
-	AlarmManager alarmManager;
-	PendingIntent pendingIntent;
-	Context context;
-	
+	private AlarmManager alarmManager;
+	private PendingIntent pendingIntent;
+	private Context context;
+
+	private int alarmPeriodInSeconds = 60;
+
 	public AlarmHelper(Context context) {
 		this.context = context;
-		
+
 		alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
 
 		Intent intent = new Intent(context, NotifyMeReceiver.class);
-		pendingIntent = PendingIntent.getBroadcast(context, 0, intent, 0);
+		intent.setAction("android.intent.action.TIME_SET");
+		pendingIntent = PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 	}
 
 	public void setAlarm() {
-
-
 		Calendar time = Calendar.getInstance();
 		time.setTimeInMillis(System.currentTimeMillis());
-		time.add(Calendar.SECOND, 3);
-		alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, time.getTimeInMillis(), 3000, pendingIntent);
+		alarmManager.setRepeating(AlarmManager.ELAPSED_REALTIME, time.getTimeInMillis(),  60*1000, pendingIntent);
 	}
 
 	public void enableReceiver() {
@@ -55,7 +55,7 @@ public class AlarmHelper {
 	}
 
 	public void cancelAlarm() {
-		if (alarmManager!= null) {
+		if (alarmManager != null) {
 			alarmManager.cancel(pendingIntent);
 		}
 	}
